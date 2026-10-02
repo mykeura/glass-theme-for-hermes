@@ -89,10 +89,12 @@ const glassCSS = `
   [data-disabled='true']
 ) {
   /* Host utility classes use opacity for disabled controls. Replace that
-     opacity loss with a readable muted tier and reduced saturation. */
+     opacity loss with a readable muted tier and a concrete muted fill. */
   opacity: 1;
   color: var(--ui-text-tertiary);
-  filter: saturate(0.35);
+  background-color: var(--theme-card-seed);
+  border-color: var(--dt-border);
+  filter: none;
 }
 
 :root[data-hermes-theme='glass'] :where(.cm-editor, .cm-gutters) {
@@ -226,7 +228,7 @@ const glassTheme = {
     blue: '#245d9d',
     magenta: '#78578a',
     cyan: '#287d86',
-    white: '#f9fcfd',
+    white: '#45595d',
     brightBlack: '#46626a',
     brightRed: '#8c3035',
     brightGreen: '#17654f',
@@ -234,13 +236,13 @@ const glassTheme = {
     brightBlue: '#1a4b83',
     brightMagenta: '#624572',
     brightCyan: '#1d6870',
-    brightWhite: '#ffffff'
+    brightWhite: '#263f46'
   },
   darkTerminal: {
     foreground: '#ecf8f7',
     cursor: '#7ae2dd',
     selectionBackground: '#3d777b',
-    black: '#102124',
+    black: '#b5cdcc',
     red: '#ef7777',
     green: '#67c9a3',
     yellow: '#dfc27b',

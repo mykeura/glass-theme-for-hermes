@@ -57,6 +57,14 @@ for (const [mode, colors] of Object.entries({ light: glassTheme.colors, dark: gl
       }
     }
 
+    const disabledText = composite(colors.foreground, colors.card, 0.74)
+    for (const control of ['primary', 'destructive']) {
+      assert.ok(
+        contrast(disabledText, colors.card) >= 4.5,
+        `${mode}: disabled ${control} control text on the concrete muted fill must be at least 4.5:1`
+      )
+    }
+
     for (const background of surfaces) {
       assert.ok(
         contrast(colors.foreground, background) >= 4.5,
@@ -80,6 +88,19 @@ for (const [mode, colors] of Object.entries({ light: glassTheme.colors, dark: gl
 
     const selection = composite(colors.midground, colors.background, 0.32)
     assert.ok(contrast(colors.foreground, selection) >= 4.5, `${mode}: text on selection must be at least 4.5:1`)
+
+    const terminal = mode === 'light' ? glassTheme.terminal : glassTheme.darkTerminal
+    for (const [slot, value] of Object.entries(terminal)) {
+      if (slot === 'selectionBackground') {
+        continue
+      }
+
+      assert.ok(contrast(value, colors.card) >= (slot === 'cursor' ? 3 : 4.5), `${mode}: terminal ${slot} must be readable on the concrete canvas`)
+    }
+    assert.ok(
+      contrast(terminal.foreground, terminal.selectionBackground) >= 4.5,
+      `${mode}: terminal selection must retain normal text contrast`
+    )
   })
 }
 
