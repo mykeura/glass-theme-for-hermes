@@ -69,6 +69,12 @@ hermes plugins doctor . --ci
 
 Static checks do not replace a visual check in a compatible Hermes Desktop session.
 
+## Support
+
+If you find Glass Theme useful, you can support my work through [GitHub Sponsors](https://github.com/sponsors/mykeura).
+
+[My Nous Portal referral link](https://portal.nousresearch.com/r/mykeura) gives new Personal subscribers **$15 off** and gives me a **$10 referral credit**. Both options are entirely optional, but appreciated.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
