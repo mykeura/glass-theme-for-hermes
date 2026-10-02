@@ -25,7 +25,9 @@ núcleo de Hermes ni copia código, assets o paletas de otros plugins.
 - Estados deshabilitados distinguibles sin aplicar una opacidad global que
   vuelva ilegible el contenido.
 - Una paleta de terminal coherente con cada modo, sin establecer un fondo que
-  opaque la superficie translúcida.
+  opaque la superficie translúcida. Sus colores ANSI por defecto se revisan
+  sobre el canvas concreto del host; una aplicación que dibuja sus propios
+  colores dentro del terminal queda fuera de esa garantía.
 
 La transparencia descrita aquí ocurre dentro de la interfaz de Hermes. El
 plugin no promete una ventana transparente frente al escritorio ni controla la

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Miguel Euraque
+# SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
+
 # Local dependency/cache output (the plugin has no runtime dependencies).
 node_modules/
 coverage/

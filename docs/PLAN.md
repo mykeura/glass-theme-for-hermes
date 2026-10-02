@@ -42,8 +42,10 @@ terminal coherente y CSS acotado a la apariencia de la interfaz.
 el identificador del manifiesto coincide con el del plugin; el selector nativo
 puede descubrir el tema y alternar ambos modos; la superficie conserva lectura
 con los objetivos de contraste; el código no edita el núcleo, no agrega
-dependencias externas y no usa assets o paletas copiadas. Este hito termina
-con el commit de implementación.
+dependencias externas y no usa assets o paletas copiadas. Los colores ANSI por
+defecto deben leerse sobre el canvas concreto del host; los colores propios de
+programas ejecutados dentro del terminal quedan fuera del alcance. Este hito
+termina con el commit de implementación.
 
 ### 2. Validación y documentación final
 
