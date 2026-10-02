@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2026 Miguel Euraque
+# SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
+name: glass-theme
+version: "0.1.0"
+description: "Native Hermes Desktop Glass theme with light and dark translucent surfaces."
+author: "Miguel Euraque"
+license: "LicenseRef-Miguel-Euraque-Proprietary"
+requires_hermes: ">=0.21"
+tags:
+  - desktop
+  - themes
+  - glass
