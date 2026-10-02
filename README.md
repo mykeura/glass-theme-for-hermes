@@ -45,10 +45,13 @@ carga un plugin de disco desde:
 $HERMES_HOME/desktop-plugins/<id>/plugin.js
 ```
 
-Este repositorio es un paquete unificado: contiene `plugin.yaml` y la mitad
-de Desktop en `desktop/plugin.js`. Cuando se instala localmente, Hermes copia
-esa mitad a `desktop-plugins/` y la carga a nivel de aplicación. El cambio de
-perfil no crea otra copia ni altera el alcance del tema.
+Este repositorio es un paquete unificado: contiene `plugin.yaml`, una entrada
+de compatibilidad sin efectos para el cargador de plugins Python de Hermes
+Agent (`__init__.py`) y la mitad de Desktop en `desktop/plugin.js`. La entrada
+de Agent no registra herramientas ni modifica configuración; el tema visual
+solo se registra y aplica en Hermes Desktop. Al instalar el paquete, Hermes
+carga cada entrada con su runtime correspondiente. El cambio de perfil no crea
+otra copia ni altera el alcance del tema.
 
 El plugin no está aislado del proceso de Desktop. Carga únicamente código que
 hayas revisado y conserva una copia del repositorio para poder retirar el
@@ -75,6 +78,13 @@ manualmente a una instalación activa para esta prueba.
 Después de editar `desktop/plugin.js`, usa **⌘K → Reload desktop plugins**
 para pedir al host una recarga. La selección del tema se hace en la interfaz
 nativa de Hermes, no desde una pantalla propia del plugin.
+
+Para revertirlo, vuelve a seleccionar el tema anterior en Desktop, desactiva
+Glass en la gestión nativa de plugins y recarga los plugins de Desktop. El host
+retira el aporte registrado y reemplaza o limpia su hoja `customCSS`; no borres
+ni edites archivos del núcleo. Para retirar también la instalación del lado de
+Agent, ejecuta `hermes plugins disable glass-theme` y, si ya no necesitas el
+paquete, `hermes plugins remove glass-theme`.
 
 ## Desarrollo y verificación
 

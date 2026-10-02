@@ -41,7 +41,8 @@ las pruebas que declara `package.json`.
 | Registro del plugin | `npm test`, que ejecuta `tests/registration.test.mjs`. | Pasó localmente (`1/1` en el resumen combinado). |
 | Prueba de paleta base | `npm test`, que ejecuta `tests/contrast.test.mjs`; cubre cuatro niveles compositados de texto con umbral `4.5:1`, colores de acción, borde, foco, selección y controles deshabilitados sobre superficies de prueba. | Pasó localmente en `1b254e4` (`2/2`); también verifica fallback opaco y modo de transparencia reducida. Es evidencia estática y no una medición universal del CSS renderizado por Hermes. |
 | ANSI sobre canvas concreto | `tests/contrast.test.mjs` comprueba foreground, cursor, colores ANSI por defecto y selección claro/oscuro contra el fondo concreto del canvas. | Pasó localmente en `1b254e4`; cubre la paleta que declara el plugin. Los colores que una aplicación dibuje por su cuenta dentro del terminal quedan fuera del alcance. |
-| Validador del host | `hermes plugins validate .` | Pasó localmente (`exit 0`); el host informó que el manifiesto, la entrada Desktop, seguridad y ausencia de override del núcleo son válidos. También advirtió que no hay `__init__.py`, esperado para este plugin manifest-only. |
+| Validador del host | `hermes plugins validate .` | Pasó tras el cambio: manifiesto, ambas entradas, sonda aislada de `register()`, seguridad y superficie Desktop SDK. |
+| Cargador Python de Agent | `hermes plugins doctor . --ci` | Pasó desde la raíz del proyecto; importó y ejecutó la entrada de Agent sin registrar tools ni hooks. |
 | Contraste renderizado | Medir texto normal, texto secundario, estados de control y foco sobre las superficies compositadas por el host; registrar estilos calculados y valores. | Pendiente: falta evidencia del renderer Electron y del canvas real de terminal; los checks actuales cubren el contrato estático y los ANSI declarados. |
 | Selección nativa | Abrir Hermes Desktop, recargar plugins y seleccionar el tema desde la UI nativa. | Pendiente; no se instala vivo durante la preparación documental. |
 | Claro y oscuro | Observar ambos modos, terminal, foco, controles y estados deshabilitados. | Pendiente de validación visual real. |
@@ -113,3 +114,39 @@ ni se escribió estado de selección por fuera de la UI.
 La versión del código fuente del host consultada y la versión de Desktop
 instalada pueden no coincidir. Por eso una lectura del SDK no sustituye la
 prueba con el runtime que se vaya a entregar.
+
+## Corrección del paquete unificado
+
+La reproducción de `hermes plugins doctor . --ci` inicialmente falló porque
+Agent intentaba importar el paquete como plugin Python y no encontraba
+`__init__.py`. El paquete ahora incluye una función `register(ctx)` intencionalmente
+sin efectos para satisfacer ese contrato sin exponer capacidades de Agent; la
+contribución visual sigue siendo exclusivamente `desktop/plugin.js`.
+`tests/agent-entrypoint.test.mjs` comprueba que la entrada carga y no registra
+capacidades.
+
+Comprobaciones ejecutadas después del cambio:
+
+| Comprobación | Resultado |
+| --- | --- |
+| `npm run check` | Pasó. |
+| `npm test` | 7/7 pasaron: entrada Agent, paletas clara/oscura, contraste, CSS y registro Desktop. |
+| `hermes plugins validate .` | Pasó; la sonda aislada ejecutó `register()`. |
+| `hermes plugins doctor . --ci` | Pasó desde el directorio fuente; runtime discovery, manifest, import y registration correctos. |
+
+El artefacto de Desktop es un único paquete con dos paletas (`colors` y
+`darkColors`), no dos plugins ni dos archivos compilados. El repositorio no
+define un paso de build: la entrada ESM se carga directamente. Se probó
+`hermes plugins install file:///home/miguel/Documentos/Desarrollador/Hermes/glass-theme-for-hermes --no-enable`
+con un `HERMES_HOME` aislado; el instalador basado en Git instaló el `HEAD`
+confirmado, no los cambios locales aún no versionados. Por ello esa copia no
+verifica el artefacto corregido y no se cuenta como prueba de instalación. Para
+probar exactamente esta corrección, primero hay que versionar los cambios y
+repetir la instalación en un perfil de prueba.
+
+La validación visual en Electron continúa pendiente: el entorno previamente
+terminó antes de abrir una ventana con `Operation not permitted`. No se afirma
+que la selección nativa, los estilos computados ni la limpieza tras desactivar
+se hayan observado en pantalla. Reproducir esos pasos en una sesión Desktop
+con soporte gráfico; al cambiar de Glass a otro tema, comprobar la retirada de
+`#hermes-desktop-custom-css` o que su contenido corresponda al nuevo tema.
