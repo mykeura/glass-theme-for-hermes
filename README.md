@@ -18,11 +18,11 @@ The transparency applies only inside Hermes. This plugin does not make the nativ
 
 ### Light mode
 
-![Glass Theme for Hermes in light mode](images/light-glass.gif)
+![Glass Theme for Hermes in light mode](images/light-glass-mode.jpg)
 
 ### Dark mode
 
-![Glass Theme for Hermes in dark mode](images/dark-glass.gif)
+![Glass Theme for Hermes in dark mode](images/dark-glass-mode.jpg)
 
 ## Compatibility
 
