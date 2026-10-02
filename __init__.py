@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Miguel Euraque
-# SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
+# SPDX-License-Identifier: MIT
 
 """Hermes Agent compatibility entrypoint for the Desktop-only Glass theme.
 

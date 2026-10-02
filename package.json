@@ -1,13 +1,13 @@
 {
   "name": "glass-theme-for-hermes",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
-  "description": "Native Glass theme plugin for Hermes Desktop.",
+  "description": "Native teal glass theme for Hermes Desktop.",
   "scripts": {
     "check": "node --check desktop/plugin.js && node --check tests/registration.test.mjs && node --check tests/contrast.test.mjs && node --check tests/agent-entrypoint.test.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "author": "Miguel Euraque",
-  "license": "LicenseRef-Miguel-Euraque-Proprietary"
+  "license": "MIT"
 }

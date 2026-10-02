@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2026 Miguel Euraque
-# SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
-
 # Glass theme review contract
 
 This is the read-only contract audit for the Glass theme plugin. The host

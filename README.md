@@ -1,68 +1,42 @@
-<!-- SPDX-FileCopyrightText: 2026 Miguel Euraque -->
-<!-- SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary -->
-
 # Glass Theme for Hermes
 
-Glass Theme es un tema original para Hermes Desktop, inspirado en la claridad
-del vidrio de macOS. Ofrece una familia coherente para modo claro y oscuro,
-con superficies translúcidas, capas suaves y blur dentro de la ventana de
-Hermes, manteniendo el texto y los controles legibles.
+Glass Theme is an original teal glass theme for Hermes Desktop. It provides coordinated light and dark palettes, translucent internal surfaces, soft layers, and blur where the host supports them, while preserving readable text and controls.
 
-El paquete usa la API nativa de Desktop Plugin SDK. Su aporte visual se
-registra mediante `THEMES_AREA` como un `DesktopTheme`: colores base, una
-variante opcional `darkColors`, tipografía local del sistema, paleta ANSI y
-CSS acotado a las superficies que el host permite personalizar. No modifica el
-núcleo de Hermes ni copia código, assets o paletas de otros plugins.
+The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopTheme` in `THEMES_AREA`, including light and dark palettes, a matching ANSI terminal palette, and CSS limited to surfaces that the host exposes to plugins. It does not modify Hermes core or include code, assets, or palettes copied from other plugins.
 
-## Qué incluye
+## Features
 
-- Tema claro y tema oscuro seleccionables desde el selector nativo de Hermes.
-- Transparencia y blur dentro de las superficies de la aplicación cuando el
-  host y el estilo de la superficie los admiten.
-- Contraste objetivo de al menos 4.5:1 para texto normal y 3:1 para controles,
-  iconos y estados de foco, medido sobre el color compositado de cada
-  superficie.
-- Estados deshabilitados distinguibles sin aplicar una opacidad global que
-  vuelva ilegible el contenido.
-- Una paleta de terminal coherente con cada modo, sin establecer un fondo que
-  opaque la superficie translúcida. Sus colores ANSI por defecto se revisan
-  sobre el canvas concreto del host; una aplicación que dibuja sus propios
-  colores dentro del terminal queda fuera de esa garantía.
+- Light and dark themes in Hermes' native theme picker.
+- Internal translucency and blur where the host and surface support them.
+- Target contrast of at least 4.5:1 for normal text and 3:1 for controls, icons, and focus states.
+- Readable disabled states without global opacity.
+- Terminal palettes designed for Hermes' concrete terminal canvas.
 
-La transparencia descrita aquí ocurre dentro de la interfaz de Hermes. El
-plugin no promete una ventana transparente frente al escritorio ni controla la
-vibrancy, el material o el compositor del sistema operativo; esas capacidades
-pertenecen al host.
+The transparency applies only inside Hermes. This plugin does not make the native window transparent over the desktop and cannot control operating-system vibrancy, materials, or compositor rules.
 
-## Compatibilidad y límites
+## Compatibility
 
-El objetivo es Hermes Desktop con el contrato de `@hermes/plugin-sdk` que
-expone `THEMES_AREA` y el modelo `DesktopTheme`. El archivo de escritorio es
-ESM sin compilar y solo debe importar los módulos admitidos por el SDK. Hermes
-carga un plugin de disco desde:
+Glass Theme requires Hermes Desktop and Hermes Agent `>=0.21`. It is a unified package: `plugin.yaml` describes the package, `__init__.py` is an inert compatibility entry point for the Agent loader, and `desktop/plugin.js` registers the Desktop theme. The Agent entry point registers no tools and changes no configuration.
 
-```text
-$HERMES_HOME/desktop-plugins/<id>/plugin.js
+Install only code that you have reviewed. Plugins run in the Desktop process, so retain access to the repository in case you need to remove the package.
+
+## Install from GitHub
+
+Install the published repository with Hermes' plugin CLI, then enable the package:
+
+```bash
+hermes plugins install mykeura/glass-theme-for-hermes --no-enable
+hermes plugins enable glass-theme
+hermes gateway restart
 ```
 
-Este repositorio es un paquete unificado: contiene `plugin.yaml`, una entrada
-de compatibilidad sin efectos para el cargador de plugins Python de Hermes
-Agent (`__init__.py`) y la mitad de Desktop en `desktop/plugin.js`. La entrada
-de Agent no registra herramientas ni modifica configuración; el tema visual
-solo se registra y aplica en Hermes Desktop. Al instalar el paquete, Hermes
-carga cada entrada con su runtime correspondiente. El cambio de perfil no crea
-otra copia ni altera el alcance del tema.
+Hermes installs the package at `$HERMES_HOME/plugins/glass-theme`; no manual copying of `desktop/plugin.js` is required. Reopen Hermes Desktop, choose **Glass Theme** in the native theme picker, and select it. If Glass Theme is not listed after a local edit, use **⌘K → Reload desktop plugins**.
 
-El plugin no está aislado del proceso de Desktop. Carga únicamente código que
-hayas revisado y conserva una copia del repositorio para poder retirar el
-paquete si el host informa un error.
+To revert, select another Desktop theme. To disable or remove the package, run `hermes plugins disable glass-theme` or `hermes plugins remove glass-theme`. Do not edit or delete Hermes core files.
 
-## Opacidad de la ventana mediante el compositor
+## Window opacity on Linux
 
-Glass Theme no controla la opacidad de la ventana nativa de Hermes Desktop. En
-Linux, ese efecto puede aplicarse externamente desde Hyprland. La configuración
-usada en este entorno está en `~/.config/hypr/hyprland.lua` y asocia la clase
-real de Hermes (`com.nousresearch.hermes`) con una regla del compositor:
+Glass Theme does not control native window opacity. On Linux, a compositor such as Hyprland can apply that effect outside the plugin. The following rule was used in this environment with the observed Hermes window class:
 
 ```lua
 hl.window_rule({
@@ -72,75 +46,21 @@ hl.window_rule({
 })
 ```
 
-El primer valor (`0.9`) corresponde a la ventana activa y el segundo (`0.6`) a
-la ventana inactiva. Hyprland aplica ambos valores fuera del plugin, por lo que
-el tema conserva su alcance: estilizar únicamente las superficies internas que
-expone Hermes Desktop. Antes de reutilizar esta regla, verifica la clase de la
-ventana con `hyprctl clients`; no supongas que otra versión o distribución de
-Hermes use el mismo identificador.
+The first value applies to the active window and the second to an inactive window. Verify the class with `hyprctl clients` before reusing the rule, because another Hermes version or distribution may use a different identifier. Windows and macOS need a compatible window-management utility for comparable per-window opacity; this plugin cannot provide it.
 
-En Windows o macOS, Hyprland no está disponible. Para obtener una opacidad de
-ventana equivalente, busca una herramienta o gestor compatible con ese sistema
-operativo que admita reglas de opacidad por aplicación o ventana. No es una
-capacidad que este plugin pueda sustituir en esas plataformas.
+## Development and verification
 
-## Instalación local
-
-Desde una instalación de Hermes que incluya `hermes plugins`, instala el
-paquete usando una URI `file://` absoluta. La opción `--no-enable` deja la
-instalación inactiva hasta que revises el estado:
-
-```bash
-hermes plugins install file:///RUTA/ABSOLUTA/glass-theme-for-hermes --no-enable
-hermes plugins list
-hermes plugins enable glass-theme
-```
-
-El identificador `glass-theme` coincide con el manifiesto de este repositorio.
-El comando de instalación sigue la interfaz documentada por Hermes (`install
-<identifier> [--no-enable|--enable]`); la URI debe apuntar a la carpeta que
-contiene el manifiesto y `desktop/plugin.js`. No se debe copiar el archivo
-manualmente a una instalación activa para esta prueba.
-
-Después de editar `desktop/plugin.js`, usa **⌘K → Reload desktop plugins**
-para pedir al host una recarga. La selección del tema se hace en la interfaz
-nativa de Hermes, no desde una pantalla propia del plugin.
-
-Para revertirlo, vuelve a seleccionar el tema anterior en Desktop, desactiva
-Glass en la gestión nativa de plugins y recarga los plugins de Desktop. El host
-retira el aporte registrado y reemplaza o limpia su hoja `customCSS`; no borres
-ni edites archivos del núcleo. Para retirar también la instalación del lado de
-Agent, ejecuta `hermes plugins disable glass-theme` y, si ya no necesitas el
-paquete, `hermes plugins remove glass-theme`.
-
-## Desarrollo y verificación
-
-El SDK de Desktop carga `desktop/plugin.js` sin paso de compilación. Antes de
-considerar una versión lista, ejecuta las comprobaciones del proyecto y anota
-la evidencia reproducible en [`docs/VALIDATION.md`](docs/VALIDATION.md).
-Ese archivo distingue las comprobaciones estáticas de una comprobación visual
-real en Hermes; la segunda requiere una sesión de Desktop compatible y no se
-debe inferir a partir de que el archivo JavaScript analice correctamente.
-
-Los comandos de comprobación del paquete son:
+The Desktop SDK loads `desktop/plugin.js` directly, without a build step. Run the following checks before a release and record reproducible results in [`docs/VALIDATION.md`](docs/VALIDATION.md):
 
 ```bash
 npm run check
 npm test
 hermes plugins validate .
+hermes plugins doctor . --ci
 ```
 
-`npm test` debe terminar sin fallos antes de publicar una versión. Si alguno
-de estos comandos falla, conserva el resultado y el motivo en
-[`docs/VALIDATION.md`](docs/VALIDATION.md).
+Static checks do not replace a visual check in a compatible Hermes Desktop session. The milestone plan and acceptance criteria are in [`docs/PLAN.md`](docs/PLAN.md). This project is distributed under the [MIT License](LICENSE).
 
-El plan de hitos y sus criterios de aceptación está en
-[`docs/PLAN.md`](docs/PLAN.md). La licencia del repositorio se encuentra en
-[`LICENSE`](LICENSE).
+## Originality
 
-## Originalidad
-
-Glass Theme toma del host únicamente el contrato público necesario para
-registrar un tema nativo. El nombre, la composición visual, las decisiones de
-contraste y las paletas de este paquete son trabajo original de Miguel
-Euraque. No se distribuyen assets externos ni fragmentos de otros plugins.
+Glass Theme uses only Hermes' public theme contract. Its name, visual composition, contrast decisions, and palettes are original work by Miguel Euraque, and the repository distributes no external assets or excerpts from other plugins.

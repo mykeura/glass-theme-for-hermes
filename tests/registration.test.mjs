@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2026 Miguel Euraque
-// SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
+// SPDX-License-Identifier: MIT
 
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
@@ -23,6 +23,7 @@ test('registers exactly one native Glass theme contribution', () => {
   assert.equal(registrations[0].area, 'themes')
   assert.equal(registrations[0].id, 'glass')
   assert.equal(registrations[0].data.name, 'glass')
+  assert.equal(registrations[0].data.description, 'Teal glass theme with light and dark palettes.')
   assert.equal(registrations[0].data.customCSS, plugin.glassCSS)
   assert.ok(registrations[0].data.darkColors)
 })

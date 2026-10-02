@@ -1,8 +1,9 @@
-# SPDX-FileCopyrightText: 2026 Miguel Euraque
-# SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
-
-# Local dependency/cache output (the plugin has no runtime dependencies).
+# Local dependency, test, and interpreter output.
 node_modules/
 coverage/
+.pytest_cache/
+__pycache__/
+*.py[cod]
 .DS_Store
+npm-debug.log*
 *.log

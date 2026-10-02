@@ -1,6 +1,3 @@
-<!-- SPDX-FileCopyrightText: 2026 Miguel Euraque -->
-<!-- SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary -->
-
 # Plan de Glass Theme
 
 ## Objetivo
@@ -26,10 +23,11 @@ validación. La documentación debe describir la instalación del paquete
 unificado mediante una URI `file://` absoluta, los límites reales de la
 translucidez y la frontera con el núcleo.
 
-**Aceptación:** todos los archivos propios llevan los avisos SPDX exigidos;
-README, licencia y plan no prometen transparencia del sistema operativo ni
-presentan código, assets o paletas externas como propios. Este hito termina
-con el commit inicial de documentación.
+**Aceptación:** los archivos de código y scripts propios llevan los avisos SPDX
+correspondientes; README, licencia y plan no incluyen esos encabezados ni
+prometen transparencia del sistema operativo, y tampoco presentan código,
+assets o paletas externas como propios. Este hito termina con el commit inicial
+de documentación.
 
 ### 1. Implementación del plugin
 

@@ -1,6 +1,3 @@
-<!-- SPDX-FileCopyrightText: 2026 Miguel Euraque -->
-<!-- SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary -->
-
 # Validación
 
 Este registro separa evidencia observada de comprobaciones todavía pendientes.
@@ -150,3 +147,72 @@ que la selección nativa, los estilos computados ni la limpieza tras desactivar
 se hayan observado en pantalla. Reproducir esos pasos en una sesión Desktop
 con soporte gráfico; al cambiar de Glass a otro tema, comprobar la retirada de
 `#hermes-desktop-custom-css` o que su contenido corresponda al nuevo tema.
+
+## Validación de la versión 0.1.1
+
+La versión anterior era `0.1.0`; la versión nueva es `0.1.1` (incremento patch).
+`plugin.yaml` es la fuente de versión del plugin y `package.json` se mantiene
+sincronizado. Ambos manifiestos declaran ahora `MIT`, de acuerdo con `LICENSE`.
+No hay un archivo separado de changelog en el proyecto.
+
+Comprobaciones ejecutadas desde la raíz del repositorio:
+
+| Comando | Resultado |
+| --- | --- |
+| `git diff --check` | Pasó. |
+| `npm run check` | Pasó; sintaxis ESM de la entrada Desktop y las pruebas. |
+| `npm test` | Pasó: 7/7 pruebas. |
+| `hermes plugins validate .` | Pasó; manifiesto, entradas y superficie Desktop aceptados. |
+| `hermes plugins doctor . --ci` | Pasó; runtime discovery, parseo del manifiesto, import y registro correctos. |
+
+Para ejercitar el instalador real sin cambiar el perfil activo, se creó una copia
+temporal del árbol fuente, se inicializó como repositorio Git temporal y se usó
+un `HERMES_HOME` desechable:
+
+```bash
+HERMES_HOME="$TEST_ROOT/home" hermes plugins install "file://$TEST_ROOT/source" --no-enable
+HERMES_HOME="$TEST_ROOT/home" hermes plugins doctor glass-theme --ci
+HERMES_HOME="$TEST_ROOT/home" hermes plugins enable glass-theme
+HERMES_HOME="$TEST_ROOT/home" hermes plugins show glass-theme
+```
+
+La instalación aislada reportó `glass-theme 0.1.1`, el doctor aprobó import y
+registro, y `hermes plugins show glass-theme` mostró el estado habilitado y la
+descripción declarada `Translucent teal glass theme with light and dark palettes.`
+La descripción abreviada queda verificada en el manifiesto y en la vista del
+plugin del CLI, pero el área de temas de Desktop no pudo inspeccionarse. Esta
+activación corresponde al cargador de plugins Agent en el perfil temporal; no
+equivale a seleccionar el tema nativo en Hermes Desktop.
+
+La sesión actual de Hermes Desktop está empaquetada y no expone CDP en
+`127.0.0.1:9222` (la conexión fue rechazada). No se cambió la configuración del
+usuario ni se seleccionó el tema; por tanto, apariencia, selección nativa y
+ausencia de errores nuevos del renderer siguen sin verificarse visualmente.
+
+## Validación de la versión 0.1.2
+
+La versión `0.1.2` actualiza el paquete a MIT, deja los encabezados SPDX solo
+en archivos de código y scripts, reduce la descripción del tema a `Teal glass
+theme with light and dark palettes.`, mejora la instalación remota del README y
+amplía `.gitignore` para excluir cachés y salidas locales no necesarias para
+instalar el plugin.
+
+Comprobaciones ejecutadas desde la raíz del repositorio:
+
+| Comprobación | Resultado |
+| --- | --- |
+| `npm run check` | Pasó. |
+| `npm test` | Pasó: 7/7 pruebas. Incluye la descripción corta registrada en `THEMES_AREA`. |
+| `hermes plugins validate .` | Pasó: manifiesto, entradas, sonda de `register()`, escaneo de seguridad y superficie Desktop SDK. |
+| `hermes plugins doctor . --ci` | Pasó: discovery, manifiesto, import y registro sin capacidades de Agent. |
+
+También se ejercitó el instalador real de Hermes con una instantánea Git temporal
+del árbol de trabajo y un `HERMES_HOME` temporal. `hermes plugins install
+file://… --no-enable` instaló `glass-theme 0.1.2`; después, `doctor`, `enable` y
+`show` confirmaron el manifiesto, la descripción corta y el estado `enabled`.
+No se modificó el perfil activo ni se automatizó Hermes Desktop con CUA.
+
+Esta evidencia valida el paquete, el cargador y el flujo de instalación de
+Hermes. La comprobación visual del selector nativo y de los estilos renderizados
+sigue pendiente en una sesión Desktop compatible; no se sustituye por estas
+pruebas estáticas o de CLI.

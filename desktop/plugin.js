@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2026 Miguel Euraque
-// SPDX-License-Identifier: LicenseRef-Miguel-Euraque-Proprietary
+// SPDX-License-Identifier: MIT
 
 import { THEMES_AREA } from '@hermes/plugin-sdk'
 
@@ -160,7 +160,7 @@ const glassCSS = `
 const glassTheme = {
   name: 'glass',
   label: 'Glass',
-  description: 'Translucent teal glass surfaces with a high-contrast light and dark family.',
+  description: 'Teal glass theme with light and dark palettes.',
   colors: {
     background: '#f3f7f8',
     foreground: '#17333a',
