@@ -24,9 +24,16 @@ const glassCSS = `
   --ui-bg-elevated: var(--glass-popover);
   --ui-chat-surface-background: var(--glass-surface);
   --ui-editor-surface-background: var(--glass-surface);
-  --ui-terminal-surface-background: var(--glass-surface);
+  /* xterm's WebGL/canvas renderer needs a concrete colour. The surrounding
+     terminal panel remains glass; the host resolves this seed for xterm. */
+  --ui-terminal-surface-background: var(--theme-card-seed);
   --ui-sidebar-surface-background: var(--glass-sidebar);
   --ui-selection-background: var(--glass-selection);
+  /* Keep every host text tier above normal-text contrast after compositing.
+     The progressively lower alpha still preserves the visual hierarchy. */
+  --ui-text-secondary: color-mix(in srgb, var(--theme-foreground) 84%, transparent);
+  --ui-text-tertiary: color-mix(in srgb, var(--theme-foreground) 74%, transparent);
+  --ui-text-quaternary: color-mix(in srgb, var(--theme-foreground) 70%, transparent);
 }
 
 :root[data-hermes-theme='glass'] :where(
@@ -73,8 +80,28 @@ const glassCSS = `
   color: var(--ui-text-primary);
 }
 
-:root[data-hermes-theme='glass'] :where(.cm-editor, .cm-gutters, .xterm) {
+:root[data-hermes-theme='glass'] :where(
+  button:disabled,
+  input:disabled,
+  textarea:disabled,
+  select:disabled,
+  [aria-disabled='true'],
+  [data-disabled='true']
+) {
+  /* Host utility classes use opacity for disabled controls. Replace that
+     opacity loss with a readable muted tier and reduced saturation. */
+  opacity: 1;
+  color: var(--ui-text-tertiary);
+  filter: saturate(0.35);
+}
+
+:root[data-hermes-theme='glass'] :where(.cm-editor, .cm-gutters) {
   background: var(--glass-surface);
+  color: var(--ui-text-primary);
+}
+
+:root[data-hermes-theme='glass'] :where(.xterm, .xterm-screen, .xterm-viewport) {
+  background: var(--ui-terminal-surface-background);
   color: var(--ui-text-primary);
 }
 

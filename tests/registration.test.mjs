@@ -30,6 +30,10 @@ test('registers exactly one native Glass theme contribution', () => {
 test('uses host-owned theme markers and does not inject or observe the DOM', () => {
   assert.match(plugin.glassCSS, /data-hermes-theme='glass'/)
   assert.match(plugin.glassCSS, /--glass-border: var\(--dt-border\)/)
+  assert.match(plugin.glassCSS, /--ui-terminal-surface-background: var\(--theme-card-seed\)/)
+  assert.match(plugin.glassCSS, /\.xterm-screen, \.xterm-viewport/)
+  assert.match(plugin.glassCSS, /--ui-text-tertiary: color-mix\(in srgb, var\(--theme-foreground\) 74%/)
+  assert.match(plugin.glassCSS, /button:disabled/)
   assert.match(plugin.glassCSS, /prefers-reduced-transparency/)
   assert.match(plugin.glassCSS, /@supports not \(backdrop-filter: blur\(1px\)\)/)
   assert.doesNotMatch(plugin.glassCSS, /MutationObserver|createElement|appendChild|document\./)

@@ -42,15 +42,20 @@ for (const [mode, colors] of Object.entries({ light: glassTheme.colors, dark: gl
     const popover = composite(colors.popover, colors.background, 0.9)
     const surfaces = [colors.background, surface, sidebar, popover]
 
-    // These are the host's effective alpha-mixed text tokens from styles.css:
-    // primary 94%, secondary 74%, tertiary 54%. Tertiary is supporting copy,
-    // so it uses the 3:1 UI threshold while normal copy keeps 4.5:1.
-    const primaryText = composite(colors.foreground, surface, 0.94)
-    const secondaryText = composite(colors.foreground, surface, 0.74)
-    const tertiaryText = composite(colors.foreground, surface, 0.54)
-    assert.ok(contrast(primaryText, surface) >= 4.5, `${mode}: composited primary text must be at least 4.5:1`)
-    assert.ok(contrast(secondaryText, surface) >= 4.5, `${mode}: composited secondary text must be at least 4.5:1`)
-    assert.ok(contrast(tertiaryText, surface) >= 3, `${mode}: composited tertiary UI text must be at least 3:1`)
+    // Host text tiers are alpha-mixed over the active surface. Glass raises
+    // them to 94/84/74/70% so normal, muted, and disabled copy all retain AA.
+    const textTiers = [
+      ['primary', 0.94],
+      ['secondary', 0.84],
+      ['tertiary', 0.74],
+      ['quaternary', 0.70]
+    ]
+    for (const [tier, alpha] of textTiers) {
+      for (const background of surfaces) {
+        const textColor = composite(colors.foreground, background, alpha)
+        assert.ok(contrast(textColor, background) >= 4.5, `${mode}: ${tier} text on ${background} must be at least 4.5:1`)
+      }
+    }
 
     for (const background of surfaces) {
       assert.ok(
@@ -80,6 +85,13 @@ for (const [mode, colors] of Object.entries({ light: glassTheme.colors, dark: gl
 
 test('Glass CSS has an opaque fallback for reduced transparency and missing blur', () => {
   assert.match(glassTheme.customCSS, /--glass-surface: var\(--theme-card-seed\)/)
+  assert.match(glassTheme.customCSS, /--ui-terminal-surface-background: var\(--theme-card-seed\)/)
   assert.match(glassTheme.customCSS, /backdrop-filter: none/)
   assert.match(glassTheme.customCSS, /-webkit-backdrop-filter: none/)
+})
+
+test('terminal canvas backgrounds stay concrete while the enclosing panel stays glass', () => {
+  assert.match(glassTheme.customCSS, /\[data-terminal\][\s\S]*background: var\(--glass-surface\)/)
+  assert.match(glassTheme.customCSS, /\.xterm, \.xterm-screen, \.xterm-viewport\)[\s\S]*background: var\(--ui-terminal-surface-background\)/)
+  assert.doesNotMatch(glassTheme.customCSS, /--ui-terminal-surface-background: var\(--glass-surface\)/)
 })
