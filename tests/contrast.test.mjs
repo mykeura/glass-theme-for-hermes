@@ -42,6 +42,16 @@ for (const [mode, colors] of Object.entries({ light: glassTheme.colors, dark: gl
     const popover = composite(colors.popover, colors.background, 0.9)
     const surfaces = [colors.background, surface, sidebar, popover]
 
+    // These are the host's effective alpha-mixed text tokens from styles.css:
+    // primary 94%, secondary 74%, tertiary 54%. Tertiary is supporting copy,
+    // so it uses the 3:1 UI threshold while normal copy keeps 4.5:1.
+    const primaryText = composite(colors.foreground, surface, 0.94)
+    const secondaryText = composite(colors.foreground, surface, 0.74)
+    const tertiaryText = composite(colors.foreground, surface, 0.54)
+    assert.ok(contrast(primaryText, surface) >= 4.5, `${mode}: composited primary text must be at least 4.5:1`)
+    assert.ok(contrast(secondaryText, surface) >= 4.5, `${mode}: composited secondary text must be at least 4.5:1`)
+    assert.ok(contrast(tertiaryText, surface) >= 3, `${mode}: composited tertiary UI text must be at least 3:1`)
+
     for (const background of surfaces) {
       assert.ok(
         contrast(colors.foreground, background) >= 4.5,
@@ -60,7 +70,11 @@ for (const [mode, colors] of Object.entries({ light: glassTheme.colors, dark: gl
 
     for (const background of [surface, sidebar, popover]) {
       assert.ok(contrast(colors.border, background) >= 3, `${mode}: border UI contrast must be at least 3:1`)
+      assert.ok(contrast(colors.midground, background) >= 3, `${mode}: focus/selection accent must be at least 3:1`)
     }
+
+    const selection = composite(colors.midground, colors.background, 0.32)
+    assert.ok(contrast(colors.foreground, selection) >= 4.5, `${mode}: text on selection must be at least 4.5:1`)
   })
 }
 

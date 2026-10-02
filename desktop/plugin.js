@@ -14,7 +14,9 @@ const glassCSS = `
   --glass-surface: color-mix(in srgb, var(--theme-card-seed) 78%, transparent);
   --glass-sidebar: color-mix(in srgb, var(--theme-sidebar-seed) 84%, transparent);
   --glass-popover: color-mix(in srgb, var(--theme-elevated-seed) 90%, transparent);
-  --glass-border: color-mix(in srgb, var(--theme-midground) 38%, var(--ui-stroke-secondary));
+  /* The host writes --dt-border from DesktopThemeColors.border on every apply.
+     Keep the measured UI stroke concrete after the host's own colour math. */
+  --glass-border: var(--dt-border);
   --glass-selection: color-mix(in srgb, var(--theme-midground) 32%, var(--theme-background-seed));
   --ui-bg-chrome: var(--glass-surface);
   --ui-bg-sidebar: var(--glass-sidebar);
@@ -25,10 +27,6 @@ const glassCSS = `
   --ui-terminal-surface-background: var(--glass-surface);
   --ui-sidebar-surface-background: var(--glass-sidebar);
   --ui-selection-background: var(--glass-selection);
-}
-
-:root[data-hermes-theme='glass'] :where(body, button, input, textarea, select) {
-  color: var(--ui-text-primary);
 }
 
 :root[data-hermes-theme='glass'] :where(
