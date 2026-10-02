@@ -57,6 +57,33 @@ El plugin no está aislado del proceso de Desktop. Carga únicamente código que
 hayas revisado y conserva una copia del repositorio para poder retirar el
 paquete si el host informa un error.
 
+## Opacidad de la ventana mediante el compositor
+
+Glass Theme no controla la opacidad de la ventana nativa de Hermes Desktop. En
+Linux, ese efecto puede aplicarse externamente desde Hyprland. La configuración
+usada en este entorno está en `~/.config/hypr/hyprland.lua` y asocia la clase
+real de Hermes (`com.nousresearch.hermes`) con una regla del compositor:
+
+```lua
+hl.window_rule({
+    name = "hermes-opacity",
+    opacity = "0.9 0.6",
+    match = { class = "^(com\\.nousresearch\\.hermes)$" }
+})
+```
+
+El primer valor (`0.9`) corresponde a la ventana activa y el segundo (`0.6`) a
+la ventana inactiva. Hyprland aplica ambos valores fuera del plugin, por lo que
+el tema conserva su alcance: estilizar únicamente las superficies internas que
+expone Hermes Desktop. Antes de reutilizar esta regla, verifica la clase de la
+ventana con `hyprctl clients`; no supongas que otra versión o distribución de
+Hermes use el mismo identificador.
+
+En Windows o macOS, Hyprland no está disponible. Para obtener una opacidad de
+ventana equivalente, busca una herramienta o gestor compatible con ese sistema
+operativo que admita reglas de opacidad por aplicación o ventana. No es una
+capacidad que este plugin pueda sustituir en esas plataformas.
+
 ## Instalación local
 
 Desde una instalación de Hermes que incluya `hermes plugins`, instala el
