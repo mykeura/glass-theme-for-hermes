@@ -64,6 +64,37 @@ calculados claro/oscuro, canvas de terminal, cambio a otro tema y limpieza al
 deshabilitar o descargar el plugin. Los checks estáticos no deben presentarse
 como prueba universal del renderer.
 
+## Instalación activa autorizada
+
+Se instaló el commit exacto en el perfil activo después de inspeccionar la
+ayuda del comando y confirmar que no existía una instalación previa de
+glass-theme que necesitara backup:
+
+    hermes plugins install file:///home/miguel/Documentos/Desarrollador/Hermes/glass-theme-for-hermes \
+      --ref de294c53a20e15631fd4ab09cb9c44dec1ff88dd --enable
+
+El CLI informó instalación en
+/home/miguel/.hermes/plugins/glass-theme, habilitación del plugin y recarga
+de plugins del gateway. El paquete no declaró dependencias de runtime; el
+instalador omitió la fase de Node deps porque el paquete solo contiene el
+entrypoint ESM y sus pruebas.
+
+La lista activa mostró glass-theme como enabled, versión 0.1.0 y
+pinned@de294c53. La fuente y la copia instalada tienen los mismos SHA-256:
+
+| Archivo | SHA-256 fuente e instalado |
+| --- | --- |
+| desktop/plugin.js | ef15f4b26596c3f975d36e916391f3c65dc0834c4328db96913ee0d2063511bb |
+| plugin.yaml | 50be2f5dfe3bd24f842a2bd25c0adff1d4f9843fcad9ae0d40451717909b51 |
+| package.json | a05c5a4f6e04433defb957be14fc7614078f36167044685f8196be89b2523a9c |
+
+Esta instalación confirma el flujo del CLI, la ruta y la integridad de los
+archivos. No confirma todavía que el renderer de Hermes Desktop haya cargado
+el tema ni que el usuario lo haya seleccionado. Para comprobar esa parte,
+abre Desktop, ejecuta ⌘K → Reload desktop plugins si no aparece Glass,
+y selecciónalo desde el selector nativo. No se cambió el tema actual
+ni se escribió estado de selección por fuera de la UI.
+
 ## Procedimiento final
 
 1. Ejecutar `npm run check`, `npm test` y `hermes plugins validate .` sin instalar el
