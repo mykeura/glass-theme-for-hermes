@@ -1,8 +1,8 @@
 # Glass Theme for Hermes
 
-Glass Theme is an original teal glass theme for Hermes Desktop. It provides coordinated light and dark palettes, translucent internal surfaces, soft layers, and blur where the host supports them, while preserving readable text and controls.
+Glass Theme is a glass theme for Hermes Desktop. It pairs a white and gray light palette with a teal-toned dark palette, translucent internal surfaces, soft layers, and blur where the host supports them, while preserving readable text and controls.
 
-The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopTheme` in `THEMES_AREA`, including light and dark palettes, a matching ANSI terminal palette, and CSS limited to surfaces that the host exposes to plugins. It does not modify Hermes core or include code, assets, or palettes copied from other plugins.
+The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopTheme` in `THEMES_AREA`, including light and dark palettes, a matching ANSI terminal palette, and CSS limited to surfaces that the host exposes to plugins. It does not modify Hermes core.
 
 ## Features
 
@@ -37,10 +37,9 @@ Install the published repository with Hermes' plugin CLI, then enable the packag
 ```bash
 hermes plugins install mykeura/glass-theme-for-hermes --no-enable
 hermes plugins enable glass-theme
-hermes gateway restart
 ```
 
-Hermes installs the package at `$HERMES_HOME/plugins/glass-theme`; no manual copying of `desktop/plugin.js` is required. Reopen Hermes Desktop, choose **Glass Theme** in the native theme picker, and select it. If Glass Theme is not listed after a local edit, use **⌘K → Reload desktop plugins**.
+Hermes installs the package at `$HERMES_HOME/plugins/glass-theme`; no manual copying of `desktop/plugin.js` is required. Reopen Hermes Desktop and select **Glass** in the native theme picker. If the theme is missing or still shows an older description after an update, use **⌘K → Reload desktop plugins**.
 
 To revert, select another Desktop theme. To disable or remove the package, run `hermes plugins disable glass-theme` or `hermes plugins remove glass-theme`. Do not edit or delete Hermes core files.
 
@@ -68,8 +67,8 @@ hermes plugins validate .
 hermes plugins doctor . --ci
 ```
 
-Static checks do not replace a visual check in a compatible Hermes Desktop session. This project is distributed under the [MIT License](LICENSE).
+Static checks do not replace a visual check in a compatible Hermes Desktop session.
 
-## Originality
+## License
 
-Glass Theme uses only Hermes' public theme contract. Its name, visual composition, contrast decisions, and palettes are original work by Miguel Euraque, and the repository distributes no external assets or excerpts from other plugins.
+This project is licensed under the [MIT License](LICENSE).
