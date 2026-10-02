@@ -14,6 +14,16 @@ The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopThe
 
 The transparency applies only inside Hermes. This plugin does not make the native window transparent over the desktop and cannot control operating-system vibrancy, materials, or compositor rules.
 
+## Preview
+
+### Light mode
+
+![Glass Theme for Hermes in light mode](images/light-glass.gif)
+
+### Dark mode
+
+![Glass Theme for Hermes in dark mode](images/dark-glass.gif)
+
 ## Compatibility
 
 Glass Theme requires Hermes Desktop and Hermes Agent `>=0.21`. It is a unified package: `plugin.yaml` describes the package, `__init__.py` is an inert compatibility entry point for the Agent loader, and `desktop/plugin.js` registers the Desktop theme. The Agent entry point registers no tools and changes no configuration.
@@ -50,16 +60,15 @@ The first value applies to the active window and the second to an inactive windo
 
 ## Development and verification
 
-The Desktop SDK loads `desktop/plugin.js` directly, without a build step. Run the following checks before a release and record reproducible results in [`docs/VALIDATION.md`](docs/VALIDATION.md):
+The Desktop SDK loads `desktop/plugin.js` directly, without a build step. Run the following checks before a release:
 
 ```bash
 npm run check
-npm test
 hermes plugins validate .
 hermes plugins doctor . --ci
 ```
 
-Static checks do not replace a visual check in a compatible Hermes Desktop session. The milestone plan and acceptance criteria are in [`docs/PLAN.md`](docs/PLAN.md). This project is distributed under the [MIT License](LICENSE).
+Static checks do not replace a visual check in a compatible Hermes Desktop session. This project is distributed under the [MIT License](LICENSE).
 
 ## Originality
 

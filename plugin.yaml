@@ -1,6 +1,6 @@
 name: glass-theme
 version: "0.1.2"
-description: "Teal glass theme with light and dark palettes."
+description: "Glass surfaces in light and dark"
 author: "Miguel Euraque"
 license: "MIT"
 requires_hermes: ">=0.21"

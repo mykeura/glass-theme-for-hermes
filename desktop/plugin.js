@@ -160,7 +160,7 @@ const glassCSS = `
 const glassTheme = {
   name: 'glass',
   label: 'Glass',
-  description: 'Teal glass theme with light and dark palettes.',
+  description: 'Glass surfaces in light and dark',
   colors: {
     background: '#f3f7f8',
     foreground: '#17333a',
