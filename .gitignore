@@ -1,0 +1,5 @@
+# Local dependency/cache output (the plugin has no runtime dependencies).
+node_modules/
+coverage/
+.DS_Store
+*.log
