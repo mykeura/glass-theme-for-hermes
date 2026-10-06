@@ -1,18 +1,16 @@
 # Glass Theme for Hermes
 
-Glass Theme is a glass theme for Hermes Desktop. It pairs a white and gray light palette with a teal-toned dark palette, translucent internal surfaces, soft layers, and blur where the host supports them, while preserving readable text and controls.
+Glass Theme is a glass-inspired theme for Hermes Desktop. It pairs a white and gray light palette with a teal-toned dark palette and a matching ANSI terminal palette, tuned to stay readable under window-level translucency applied by the compositor.
 
-The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopTheme` in `THEMES_AREA`, including light and dark palettes, a matching ANSI terminal palette, and CSS limited to surfaces that the host exposes to plugins. It does not modify Hermes core.
+The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopTheme` in `THEMES_AREA` with light and dark palettes and matching terminal colours. It does not modify Hermes core.
 
 ## Features
 
 - Light and dark themes in Hermes' native theme picker.
-- Internal translucency and blur where the host and surface support them.
 - Target contrast of at least 4.5:1 for normal text and 3:1 for controls, icons, and focus states.
-- Readable disabled states without global opacity.
 - Terminal palettes designed for Hermes' concrete terminal canvas.
 
-The transparency applies only inside Hermes. This plugin does not make the native window transparent over the desktop and cannot control operating-system vibrancy, materials, or compositor rules.
+This plugin provides palettes only: it does not make the native window transparent and cannot control operating-system vibrancy, materials, or compositor rules. See **Window opacity on Linux** below for an external approach.
 
 ## Preview
 
