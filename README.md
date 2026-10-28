@@ -7,6 +7,7 @@ The package uses Hermes' native Desktop Plugin SDK. It registers one `DesktopThe
 ## Features
 
 - Light and dark themes in Hermes' native theme picker.
+- CLI/TUI skins `glass-light` and `glass-dark` for the Hermes Agent terminal, with the theme's banner emblem and wordmark.
 - Target contrast of at least 4.5:1 for normal text and 3:1 for controls, icons, and focus states.
 - Terminal palettes designed for Hermes' concrete terminal canvas.
 
@@ -24,7 +25,7 @@ This plugin provides palettes only: it does not make the native window transpare
 
 ## Compatibility
 
-Glass Theme requires Hermes Desktop and Hermes Agent `>=0.21`. It is a unified package: `plugin.yaml` describes the package, `__init__.py` is an inert compatibility entry point for the Agent loader, and `desktop/plugin.js` registers the Desktop theme. The Agent entry point registers no tools and changes no configuration.
+Glass Theme requires Hermes Desktop and Hermes Agent `>=0.21.3`. It is a unified package: `plugin.yaml` describes the package, `__init__.py` is an inert compatibility entry point for the Agent loader, and `desktop/plugin.js` registers the Desktop theme. The same package ships two CLI/TUI skins for the Agent terminal (see **CLI and TUI skins** below). The Agent entry point registers no tools and changes no configuration.
 
 Install only code that you have reviewed. Plugins run in the Desktop process, so retain access to the repository in case you need to remove the package.
 
@@ -40,6 +41,32 @@ hermes plugins enable glass-theme
 Hermes installs the package at `$HERMES_HOME/plugins/glass-theme`; no manual copying of `desktop/plugin.js` is required. Reopen Hermes Desktop and select **Glass** in the native theme picker. If the theme is missing or still shows an older description after an update, use **⌘K → Reload desktop plugins**.
 
 To revert, select another Desktop theme. To disable or remove the package, run `hermes plugins disable glass-theme` or `hermes plugins remove glass-theme`. Do not edit or delete Hermes core files.
+
+## CLI and TUI skins
+
+The package ships two skins for the Hermes Agent CLI and TUI: `glass-light` and `glass-dark`. Both carry the theme's banner emblem and wordmark alongside the full colour palette.
+
+Hermes only reads skins from `~/.hermes/skins/`, so the skins that travel inside the plugin are not picked up automatically. Copy them once after installing, and again after every plugin update:
+
+```bash
+mkdir -p ~/.hermes/skins
+cp ~/.hermes/plugins/glass-theme/skins/*.yaml ~/.hermes/skins/
+```
+
+The path uses the plugin's manifest name, `glass-theme` — not the repository directory name.
+
+Then list the available skins and activate one:
+
+```bash
+hermes skin list
+hermes skin use glass-dark
+```
+
+Inside a running session, `/skin glass-dark` switches skins without leaving the TUI.
+
+The copy inherits whatever version is installed: check `hermes plugins list` and confirm it shows the version you expect **before** copying. If the installed plugin is older than the release you followed, the commands above still succeed and silently overwrite your skins with stale colours — there is no error or warning.
+
+`glass-light` is designed for light terminals. On a black background its dark ink is not legible; use `glass-dark` there.
 
 ## Window opacity on Linux
 
@@ -61,6 +88,7 @@ The Desktop SDK loads `desktop/plugin.js` directly, without a build step. Run th
 
 ```bash
 npm run check
+npm test
 hermes plugins validate .
 hermes plugins doctor . --ci
 ```
