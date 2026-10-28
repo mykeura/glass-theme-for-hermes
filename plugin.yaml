@@ -1,9 +1,10 @@
 name: glass-theme
+manifest_version: 2
 version: "0.1.3"
 description: "Glass surfaces in light and dark"
 author: "Miguel Euraque"
 license: "MIT"
-requires_hermes: ">=0.21"
+requires_hermes: ">=0.21.3"
 tags:
   - desktop
   - themes

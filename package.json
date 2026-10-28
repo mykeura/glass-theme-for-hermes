@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Native teal glass theme for Hermes Desktop.",
   "scripts": {
-    "check": "node --check desktop/plugin.js"
+    "check": "node --check desktop/plugin.js",
+    "test": "node --test tests/"
   },
   "author": "Miguel Euraque",
   "license": "MIT"
