@@ -8,6 +8,5 @@ __pycache__/
 npm-debug.log*
 *.log
 
-# Local development tests and working documentation.
-/tests/
+# Working documentation stays local; the test suite ships so `npm test` works on a fresh clone.
 /docs/
