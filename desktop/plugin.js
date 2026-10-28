@@ -3,7 +3,7 @@
 
 import { THEMES_AREA } from '@hermes/plugin-sdk'
 
-const glassTheme = {
+export const glassTheme = {
   name: 'glass',
   label: 'Glass',
   description: 'Glass surfaces in light and dark',
