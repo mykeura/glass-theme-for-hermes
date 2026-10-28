@@ -1,0 +1,115 @@
+# Glass Light — CLI skin derived from the Glass Desktop theme (`colors` in desktop/plugin.js).
+# light palette: pair with a light terminal background
+name: glass-light
+description: Glass Light — glass surfaces in light for the CLI, paired with the Desktop theme
+
+colors:
+  background: "#f3f7f8"
+  ui_accent: "#1b6f78"
+  banner_accent: "#1f8791"
+  banner_title: "#17333a"
+  banner_text: "#17333a"
+  ui_text: "#17333a"
+  ui_label: "#46626a"
+  ui_thinking: "#5f858c"
+  banner_dim: "#5f858c"
+  banner_border: "#5f858c"
+  ui_border: "#5f858c"
+  ui_tool: "#1f8791"
+  prompt: "#17333a"
+  input_rule: "#287d86"
+  response_border: "#5f858c"
+  status_bar_bg: "#e7eff0"
+  status_bar_text: "#17333a"
+  status_bar_strong: "#1b6f78"
+  status_bar_dim: "#46626a"
+  status_bar_good: "#1e765f"
+  status_bar_warn: "#8b671e"
+  status_bar_bad: "#a33f42"
+  status_bar_critical: "#8c3035"
+  ui_ok: "#1e765f"
+  ui_warn: "#8b671e"
+  ui_error: "#a33f42"
+  session_label: "#46626a"
+  session_border: "#5f858c"
+  completion_menu_bg: "#fbfeff"
+  completion_menu_current_bg: "#d8e9eb"
+  selection_bg: "#d8f0ef"
+  voice_status_bg: "#e7eff0"
+  diff_added: "#1e765f"
+  diff_removed: "#a33f42"
+  syntax_string: "#17333a"
+  syntax_number: "#1f8791"
+  syntax_keyword: "#46626a"
+  syntax_comment: "#5f858c"
+
+terminal:
+  foreground: '#17333a'
+  cursor: '#1b6f78'
+  selectionBackground: '#9cc9cd'
+  black: '#17333a'
+  red: '#a33f42'
+  green: '#1e765f'
+  yellow: '#8b671e'
+  blue: '#245d9d'
+  magenta: '#78578a'
+  cyan: '#287d86'
+  white: '#45595d'
+  brightBlack: '#46626a'
+  brightRed: '#8c3035'
+  brightGreen: '#17654f'
+  brightYellow: '#745514'
+  brightBlue: '#1a4b83'
+  brightMagenta: '#624572'
+  brightCyan: '#1d6870'
+  brightWhite: '#263f46'
+
+darkTerminal:
+  foreground: '#ecf8f7'
+  cursor: '#7ae2dd'
+  selectionBackground: '#3d777b'
+  black: '#b5cdcc'
+  red: '#ef7777'
+  green: '#67c9a3'
+  yellow: '#dfc27b'
+  blue: '#82b7ef'
+  magenta: '#c6a0d8'
+  cyan: '#7ae2dd'
+  white: '#d9eceb'
+  brightBlack: '#729198'
+  brightRed: '#ff9696'
+  brightGreen: '#91e1bd'
+  brightYellow: '#f2d994'
+  brightBlue: '#a8d0ff'
+  brightMagenta: '#ddb8ef'
+  brightCyan: '#a2efeb'
+  brightWhite: '#ffffff'
+
+banner_hero: |
+  [#1B6F78]⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⣿⣿⣿⣿⣷⣶⣤⣤⣀⡀⠀⠀⠀⠀⠴⣤⡀⠀[/]
+  [#2B8289]⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣌⡻⣶⣄⠀⠀⠀⠈⢣⡄[/]
+  [#3B959A]⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣛⣛⠉⠁⠀⠙⠶⣭⣥⣤⡤⠂⣸⠃[/]
+  [#4AA8AA]⠀⠀⠀⢀⡄⣾⣿⢿⣿⣿⣿⣿⣯⣵⣦⣄⣬⣽⣿⣿⣶⣶⣶⣶⣽⣿⣶⢚⡵⠂[/]
+  [#5ABCBB]⠀⠀⢀⡾⠀⠹⣿⣦⣻⣷⣿⣿⣿⣿⡟⠛⣿⣿⣿⣟⣭⣴⣦⣍⡙⠋⣉⡍⣠⡶[/]
+  [#6ACFCC]⠀⠀⣨⣴⣇⠀⣈⠛⠉⠀⠈⠉⣿⣿⣇⠀⣼⣿⣿⠿⣛⣻⣿⣿⣿⣿⢫⠞⡋⠁[/]
+  [#7AE2DD]⠀⠀⣟⣻⣿⣿⣿⣧⠈⠊⠀⠀⣟⢿⣿⣿⣿⡽⣣⣾⣿⣻⠭⠉⡸⠃⠁⢘⡁⠞[/]
+  [#6ACFCC]⢀⠔⢿⡫⠗⣩⣿⣇⡀⠀⠀⠀⠘⠦⣉⡻⠗⠿⠛⠛⠉⢀⣀⢶⡄⣰⣿⣿⠇⠁[/]
+  [#5ABCBB]⡉⡴⡟⠀⢰⣿⣯⣿⣷⣦⡄⠀⣀⣼⣆⠀⢀⣠⣶⣿⣾⡲⣼⣿⡟⣩⣿⡟⠀⠀[/]
+  [#4AA8AA]⠸⡇⢧⠀⠸⡃⠙⠿⠿⠁⣀⣀⣛⢷⣨⣶⣿⣿⣿⠿⢿⣷⠮⣉⣉⣯⡿⠁⠀⠀[/]
+  [#3B959A]⠀⠉⠈⠳⠖⠈⠑⣮⣭⣭⣟⣿⣟⣿⣿⣿⡿⢋⣠⣀⣤⡶⠛⢛⣿⠟⠁⠀⠀⠀[/]
+  [#2B8289]⠀⠀⠀⠀⠀⠘⠛⢿⣿⣽⣿⣿⣿⣿⣿⣿⣵⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀[/]
+  [#1B6F78]⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠻⠿⣿⣿⣿⣿⣿⣿⠿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀[/]
+banner_logo: |
+  [bold #1B6F78]██╗  ██╗███████╗██████╗ ███╗   ███╗███████╗███████╗       █████╗  ██████╗ ███████╗███╗   ██╗████████╗[/]
+  [bold #1B6F78]██║  ██║██╔════╝██╔══██╗████╗ ████║██╔════╝██╔════╝      ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝[/]
+  [#287D86]███████║█████╗  ██████╔╝██╔████╔██║█████╗  ███████╗█████╗███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║[/]
+  [#287D86]██╔══██║██╔══╝  ██╔══██╗██║╚██╔╝██║██╔══╝  ╚════██║╚════╝██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║[/]
+  [#46626A]██║  ██║███████╗██║  ██║██║ ╚═╝ ██║███████╗███████║      ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║[/]
+  [#46626A]╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝      ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝[/]
+
+branding:
+  agent_name: Hermes Agent
+  prompt_symbol: "❯"
+  help_header: "(^_^)? Commands"
+
+tool_prefix: "┊"
